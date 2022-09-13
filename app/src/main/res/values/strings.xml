@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">GESL App</string>
+
+    <string name="text_registrarse"><u>Registrarse</u></string>
+    <string name="action_favorite">user</string>
+
+
+    <string name="btnCamara">Camara</string>
+    <string name="anchoFoto">120dp</string>
+    <string name="alturaFoto">180dp</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="centro"><u>Centro</u></string>
+    <string name="modelo"><u>Modelo etq</u></string>
+    <string name="txtinfoScanner">Pulsa el botton "ESCANEAR" o escriba el código</string>
+    <string name="txtinfoNFC">Tiene el modo NFC activo, aproxime el terminal a la etiqueta.</string>
+    <string name="butlogin">Login</string>
+    <string name="butregister">Register</string>
+    <string name="butcentral">CENTRAL</string>
+    <string name="butcentro">CENTRO</string>
+    <string name="butinventario">INVENTARIO</string>
+    <string name="butcajas">CAJAS</string>
+    <string name="butscannertienda">ESCANER TIENDA</string>
+    <string name="butetiquetas">ETIQUETAS</string>
+    <string name="txtgeslv">GESL V.</string>
+    <string name="txtdeveloped">Desarrollado por Asysgon S.L.</string>
+    <string name="butscan">VOLVER A ESCANEAR</string>
+    <string name="txtconfig">CONFIGURACIÓN</string>
+    <string name="txttablas">REGARGAR TABLAS</string>
+    <string name="txtcorreo">info@asysgon.com</string>
+    <string name="txtweb">www.asysgon.com</string>
+    <string name="txtip">IP:</string>
+    <string name="txtrecursos">Recursos</string>
+    <string name="txtexit">CERRAR SESIÓN</string>
+    <string name="txtactu">BUSCAR ACTUALIZACIONES</string>
+    <string name="swtescritura">MODO SOLO ESCRITURA</string>
+    <string name="txtiditemstatus">Id Item:</string>
+    <string name="txtbatería">Batería:</string>
+    <string name="txtconectivity">Conectividad:</string>
+    <string name="txtstatus">Estado:</string>
+    <string name="butrecogidas">Recogidas</string>
+    <string name="txtinformes">INFORMES</string>
+    <string name="txtspinnercentros">ESCOGE UN CENTRO</string>
+    <string name="txtcardcentro">Centro:</string>
+    <string name="txtcardfecha">Fecha:</string>
+    <string name="txtcardmade">Realizado por:</string>
+    <string name="txtcardretir">Retirada</string>
+    <string name="txtcardcajas">Nº Cajas</string>
+    <string name="txtcardetqs">Nº Etiquetas</string>
+    <string name="txtcardtienda">En tienda</string>
+    <string name="txtcardasig">Asigandas</string>
+    <string name="txtcarddesasig">Desasignadas</string>
+    <string name="txtcardcajasgsl">Nombre cajas GESL</string>
+    <string name="txtcardubi">Ubicación</string>
+    <string name="txtcardretir2">Retirados</string>
+    <string name="txtservidor">Servidor</string>
+    <string name="txtswtpoe">Switchs POE</string>
+    <string name="txtgoodprac">Cartel de buenas prácticas</string>
+    <string name="txtantenas">Antenas</string>
+    <string name="txtvalor">Valoración Implantación</string>
+    <string name="txtobserv">Observaciones</string>
+    <string name="txtcarga">Subiendo fotos espere....</string>
+    <string name="hintmadeGeneral">Realizado por:</string>
+    <string name="txtcargando">Cargando datos espere</string>
+    <string name="descargar_inventarios">DESCARGAR INVENTARIOS</string>
+    <string name="texto_lottie">Selecciona un centro para mostrar los informes</string>
+    <string name="txt_lupa">Pulse en la lupa para ver los informes disponibles</string>
+    <string name="txt_no_hay_informes">No se han encontrado informes</string>
+    <string name="txt_no_hay_inventarios_de_materiales">No se han encontrado inventarios</string>
+    <string name="prompt">Seleccione un centro</string>
+    <string name="todo">TODO</string>
+    <string name="central">CENTRAL</string>
+    <string name="modelo_etiquetas">MODELO ETIQUETAS</string>
+    <string name="item_x">ITEM X</string>
+    <string name="textview">TextView</string>
+    <string name="txt_id_invent">ID Invent</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="usuario">Usuario</string>
+    <string name="version">Version</string>
+
+</resources>

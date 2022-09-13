@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.EscanearTiendaActivity"
+    android:background="@color/colorAccent">
+
+    <TextView
+        android:id="@+id/tvSCentro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/centro"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+        android:id="@+id/layouts1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSCentro"
+        android:background="@drawable/border_spiner">
+    <Spinner
+        android:id="@+id/spinerCentro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:padding="7dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSModelo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="40dp"
+
+        android:text="@string/modelo"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layouts1"/>
+    <LinearLayout
+        android:id="@+id/layouts2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSModelo"
+        android:background="@drawable/border_spiner">
+    <Spinner
+        android:id="@+id/spinerModeloEtq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnComenzar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/border_redondos"
+        android:padding="8dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:text="comenzar"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:textSize="23sp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
