@@ -2,9 +2,7 @@ package com.example.geslapp.core.clases;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.example.geslapp.BuildConfig;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
@@ -14,9 +12,8 @@ import java.util.List;
 
 public class ConfigPreferences {
 
+    public void createPreferences(Context context, String IP, String RESOURCES) {
 
-    public void createPreferences(Context context, String IP, String RESOURCES)
-    {
         SharedPreferences sharedpref = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpref.edit();
         editor.putString("ip",IP);
@@ -25,9 +22,8 @@ public class ConfigPreferences {
         editor.apply();
     }
 
-
-
     public int getFirstTimeRun(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG", Context.MODE_PRIVATE);
         int result, currentVersionCode = BuildConfig.VERSION_CODE;
         int lastVersionCode = sp.getInt("inicio", -1);
@@ -44,6 +40,7 @@ public class ConfigPreferences {
     }
 
     public String getRec(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return sp.getString("resources",null);
     }
@@ -58,26 +55,27 @@ public class ConfigPreferences {
     }
 
     public String getVTables(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return "Última acutalización de tablas: "+sp.getString("vtables","no hay actualizaciones");
     }
 
-    public void setVApp(Context context, String vapp)
-    {
+    public void setVApp(Context context, String vapp) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("vapp", vapp);
         editor.apply();
     }
 
-    public String getVApp(Context context)
-    {
+    public String getVApp(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return sp.getString("vapp","");
     }
 
-    public void setCon(Context context,boolean online)
-    {
+    public void setCon(Context context,boolean online) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("online",online);
@@ -85,17 +83,17 @@ public class ConfigPreferences {
     }
 
     public boolean getCon(Context  context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return sp.getBoolean("online",false);
     }
 
-    public String getLastCon(Context context)
-    {
+    public String getLastCon(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return sp.getString("lastcon","");
     }
-    public void setLastCon(Context context)
-    {
+    public void setLastCon(Context context) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd 'a las' HH:mm:ss z");
         String currentDateandTime = sdf.format(new Date());
@@ -105,22 +103,22 @@ public class ConfigPreferences {
         editor.apply();
     }
 
-    public void setLastUpdate(Context context, long update)
-    {
+    public void setLastUpdate(Context context, long update) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putLong("lastupdate",update);
         editor.apply();
     }
 
-    public long getLastUpdate(Context context)
-    {
+    public long getLastUpdate(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return sp.getLong("lastupdate",0);
     }
 
-    public void setLastAppUpdate(Context context)
-    {
+    public void setLastAppUpdate(Context context) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd 'a las' HH:mm:ss z");
         String currentDateandTime = sdf.format(new Date());
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
@@ -129,14 +127,14 @@ public class ConfigPreferences {
         editor.apply();
     }
 
-    public String getLastAppUpdate(Context context)
-    {
+    public String getLastAppUpdate(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return "Última acutalización de la app: "+sp.getString("lastappupdate","primera versión");
     }
 
-    public void setUserip(Context context,String user)
-    {
+    public void setUserip(Context context,String user) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("user",user);
@@ -144,8 +142,8 @@ public class ConfigPreferences {
         editor.apply();
     }
 
-    public String getUsername(Context context)
-    {
+    public String getUsername(Context context) {
+
         String data;
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         data = sp.getString("user","");
@@ -154,8 +152,8 @@ public class ConfigPreferences {
         return data;
     }
 
-    public String getUip(Context context)
-    {
+    public String getUip(Context context) {
+
         SharedPreferences sp = context.getSharedPreferences("CONFIG",Context.MODE_PRIVATE);
         return sp.getString("Uip","");
     }
@@ -186,6 +184,4 @@ public class ConfigPreferences {
         } catch (Exception ignored) { } // for now eat exceptions
         return "";
     }
-
-
 }

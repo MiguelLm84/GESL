@@ -89,10 +89,10 @@ public class Splash extends AppCompatActivity {
         animTextVersionSplashIn();
         String versionName = BuildConfig.VERSION_NAME;
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String fechaDeActualizacion = sdf.format(new Date(BuildConfig.BUILD_DATE));
-        tvVersion.setText("Gesl App  v" + versionName + "\nFecha: " + fechaDeActualizacion);
-
+        String fecha = fechaDeActualizacion.replaceAll("/", "");
+        tvVersion.setText("Gesl App  v" + versionName + "\n" + fecha);
     }
 
     //Método para la animación del logo de la app y splash.

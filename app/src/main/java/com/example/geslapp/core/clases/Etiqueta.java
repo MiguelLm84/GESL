@@ -1,6 +1,7 @@
 package com.example.geslapp.core.clases;
 
 public class Etiqueta {
+
     String media;
     String caja;
     String centro;

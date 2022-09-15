@@ -7,13 +7,19 @@
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/drawable/border_shape.xml" value="0.3675" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/drawable/border_shape_background.xml" value="0.3675" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/drawable/fondo_splash_intro.xml" value="0.3675" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_centroactivo.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_elegircentro.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_escaneartienda.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_informes.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_material_invent.xml" value="0.3625" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_procesoporlotes.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_registro.xml" value="0.33" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_rv_general.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/activity_rv_items.xml" value="0.3625" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/bottomconfig.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/card_antenas.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/card_etqs.xml" value="0.3625" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/card_infor.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/card_items.xml" value="0.36666666666666664" />
@@ -21,6 +27,22 @@
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/etq_dialog.xml" value="0.3625" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/splash.xml" value="0.36666666666666664" />
         <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_12_gesl_app/GESLapp-master/app/src/main/res/layout/stetqdialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/drawable/border_color.xml" value="0.3675" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/drawable/border_rounder.xml" value="0.3675" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/drawable/border_shape.xml" value="0.3675" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/drawable/border_shape_background.xml" value="0.3675" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/drawable/border_spiner.xml" value="0.3675" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/activity_escaneartienda.xml" value="0.18802083333333333" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/activity_procesoporlotes.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/activity_scanner_tienda.xml" value="0.75" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/card_etqs.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/dialog_eliminar.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/escaner_continuo.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/etq_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/fragment_scanne.xml" value="0.36666666666666664" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/item_codes.xml" value="0.34217687074829933" />
+        <entry key="..\:/RECURSOS ANDROID/Proyectos Android/GESL/2022_09_13_gesl_app/GESLapp-master/app/src/main/res/layout/item_files.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

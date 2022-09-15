@@ -11,8 +11,8 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="centro"><u>Centro</u></string>
-    <string name="modelo"><u>Modelo etq</u></string>
+    <string name="centro">Centro</string>
+    <string name="modelo">Modelo etiqueta</string>
     <string name="txtinfoScanner">Pulsa el botton "ESCANEAR" o escriba el código</string>
     <string name="txtinfoNFC">Tiene el modo NFC activo, aproxime el terminal a la etiqueta.</string>
     <string name="butlogin">Login</string>
@@ -80,5 +80,26 @@
     <string name="username">Username</string>
     <string name="usuario">Usuario</string>
     <string name="version">Version</string>
+    <string name="comenzar">comenzar</string>
+    <string name="titulo">Título</string>
+    <string name="txt_feedback_scanner">Pulsa el botton \'ESCANEAR\' o escriba el código</string>
+    <string name="escriba_el_codigo">Escriba el codigo</string>
+    <string name="enter">Enter</string>
+    <string name="tamanho">Tamaño:</string>
+    <string name="text_num_tamanho">4</string>
+    <string name="tipo">Tipo:</string>
+    <string name="txtCentro">Centro:</string>
+    <string name="txt_codigo_tipo">Bf29F8954</string>
+    <string name="nombre_centro">Nombre Centro</string>
+    <string name="ceco">Ceco</string>
+    <string name="num_ceco">6666</string>
+    <string name="cod_etq">A1UDSK0000</string>
+    <string name="codigos_tienda">Códigos Tienda</string>
+    <string name="barcode">Barcode:</string>
+    <string name="mensaje_dalog">¿Está seguro de eliminar está etiqueta?</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="code">00000</string>
+    <string name="finalizar">FINALIZAR</string>
 
 </resources>

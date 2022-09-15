@@ -52,6 +52,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class EtiquetasActivity extends AppCompatActivity {
@@ -289,7 +290,7 @@ public class EtiquetasActivity extends AppCompatActivity {
             Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             assert tag != null;
             byte[] payload = detectTagData(tag).getBytes();
-            System.out.println("Payload ----->" + payload);
+            System.out.println("Payload ----->" + Arrays.toString(payload));
         }
     }
 
@@ -414,12 +415,10 @@ public class EtiquetasActivity extends AppCompatActivity {
         NfcAdapter adapter = manager.getDefaultAdapter();
 
         if (adapter != null && adapter.isEnabled()) {
-            Toast.makeText(EtiquetasActivity.this, "NFC encendido!", Toast.LENGTH_LONG).show();
             switch0 = true;
             switchNFC.setChecked(switch0);
 
         } else {
-            Toast.makeText(EtiquetasActivity.this, "NFC apagado!", Toast.LENGTH_LONG).show();
             switchNFC.setChecked(false);
         }
 

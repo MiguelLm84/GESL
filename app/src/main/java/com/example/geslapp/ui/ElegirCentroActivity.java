@@ -55,10 +55,13 @@ public class ElegirCentroActivity extends AppCompatActivity {
     private String IP, REC;
     private final ConfigPreferences config = new ConfigPreferences();
 
+    private final static String serverResponse = new CheckConnection().getServerResponse();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elegircentro);
+
         centros = findViewById(R.id.spinerCentro2);
         btComenzar = findViewById(R.id.btnComenzar2);
         txtuser = findViewById(R.id.txtCauser1);
@@ -210,7 +213,6 @@ public class ElegirCentroActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }*/
-            String serverResponse = new CheckConnection().getServerResponse();
 
             if (serverResponse!= null) {
                 new CheckConnection().setServer_response();
@@ -272,7 +274,7 @@ public class ElegirCentroActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }*/
-                String serverResponse = new CheckConnection().getServerResponse();
+                //
 
                 if (serverResponse == null) {
                     Toast.makeText(ElegirCentroActivity.this, "No hay conexión con el host", Toast.LENGTH_SHORT).show();
@@ -322,21 +324,20 @@ public class ElegirCentroActivity extends AppCompatActivity {
         new Update().cancel(true);
         new CheckConnection().execute("http://"+IP+"/gesl/"+REC+"/");
         Explode explode = new Explode();
-        explode.setDuration(1000);
+        explode.setDuration(500);
 
         /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-        String serverResponse = new CheckConnection().getServerResponse();
 
         if (serverResponse == null) {
-            config.setCon(getApplicationContext(),false);
+            config.setCon(this,false);
 
         } else {
             config.setLastCon(getApplicationContext());
-            config.setCon(getApplicationContext(),true);
+            config.setCon(this,true);
             new CheckConnection().setServer_response();
             config.setVTables(getApplicationContext());
         }

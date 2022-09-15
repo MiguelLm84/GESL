@@ -49,6 +49,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class EstadoEtq extends AppCompatActivity {
@@ -141,104 +142,63 @@ public class EstadoEtq extends AppCompatActivity {
             }
         }
 
-        edtcode.setOnKeyListener(new View.OnKeyListener()
-        {
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
-                {
-                    switch (keyCode)
-                    {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            enterscan(edtcode.getText().toString().toUpperCase(Locale.ROOT));
-                            return true;
-                        default:
-                            break;
-
-                    }
-                }
-                return false;
-            }
-        });
-
-        butscan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scanCode();
-            }
-        });
-
-        switchNFC.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-
-                                         public void onClick(View v) {
-                                             switch0=(!switch0);
-
-
-                                             if(switch0==true) {
-                                                 NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
-                                                 NfcAdapter adapter = manager.getDefaultAdapter();
-                                                 if (adapter != null && adapter.isEnabled()) {
-
-
-                                                 } else {
-                                                     Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
-                                                     startActivity(intent);
-
-                                                 }
-                                             }else{
-                                                 Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
-                                                 startActivity(intent);
-
-
-                                             }
-
-
-                                         }
-
-                                     }
-        );
-
-
-
-
-
-        btEnter.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                media = et.getText().toString().trim().toUpperCase(Locale.ROOT);
-                enterscan(media);
-
-            }
-
-        });
-
-
-        butbarras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                escritura = !escritura;
-                if(escritura) {
-                    int color = Color.parseColor("#04A800");
-                    Drawable butdraw = butbarras.getBackground();
-                    butdraw = DrawableCompat.wrap(butdraw);
-                    DrawableCompat.setTint(butdraw,color);
-
-
-                }
-                else
-                {
-                    int color = Color.parseColor("#535353");
-                    Drawable butdraw = butbarras.getBackground();
-                    butdraw = DrawableCompat.wrap(butdraw);
-                    DrawableCompat.setTint(butdraw,color);
+        edtcode.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_CENTER:
+                    case KeyEvent.KEYCODE_ENTER:
+                        enterscan(edtcode.getText().toString().toUpperCase(Locale.ROOT));
+                        return true;
+                    default:
+                        break;
                 }
             }
+            return false;
         });
-    }//END ONCREATE
+
+        butscan.setOnClickListener(v -> scanCode());
+
+        switchNFC.setOnClickListener(v -> {
+            switch0=(!switch0);
+
+            if(switch0 == true) {
+                NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
+                NfcAdapter adapter = manager.getDefaultAdapter();
+                if (adapter != null && adapter.isEnabled()) {
+
+                } else {
+                    Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                    startActivity(intent);
+                }
+
+            } else{
+                Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
+        btEnter.setOnClickListener(view -> {
+            media = et.getText().toString().trim().toUpperCase(Locale.ROOT);
+            enterscan(media);
+        });
+
+        butbarras.setOnClickListener(v -> {
+            escritura = !escritura;
+            int color;
+            if(escritura) {
+                color = Color.parseColor("#04A800");
+
+            } else {
+                color = Color.parseColor("#535353");
+            }
+            Drawable butdraw = butbarras.getBackground();
+            butdraw = DrawableCompat.wrap(butdraw);
+            DrawableCompat.setTint(butdraw,color);
+        });
+    }
+
     private void scanCode() {
+
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(CaptureAct.class);
         integrator.setOrientationLocked(false);
@@ -246,7 +206,9 @@ public class EstadoEtq extends AppCompatActivity {
         integrator.setPrompt("Scanning Code");
         integrator.initiateScan();
     }
+
     private void obtenerEtiqueta(IntentResult result) {
+
         Etiqueta e = new Etiqueta();
         e.setMedia(result.getContents());
 
@@ -254,129 +216,10 @@ public class EstadoEtq extends AppCompatActivity {
         media = e.getMedia();
         final String tracking = edtcode.getText().toString().trim().toUpperCase(Locale.ROOT);
         System.out.println(tracking);
+
         if (result.getContents() != null) {
-            Response.Listener<String> respoListener2 =  new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    System.out.println(response);
-                    String error = "ETIQUETA VACÍA";
-                    Dialog dialog = new Dialog(EstadoEtq.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.setContentView(R.layout.stetqdialog);
-
-                    LinearLayout layoutMsg = dialog.findViewById(R.id.layoutMsg);
-
-                    TextView mediaTv = dialog.findViewById(R.id.mediatv);
-                    mediaTv.setText(e.getMedia());
-                    TextView txtconect = dialog.findViewById(R.id.txtconectivity);
-                    TextView txtstatus = dialog.findViewById(R.id.txtstatus);
-
-                    TextView txtbatería = dialog.findViewById(R.id.txtbateria);
-
-
-                    TextView errorMsg = dialog.findViewById(R.id.error);
-
-                    ImageView imgEtq = dialog.findViewById(R.id.imgEtq);
-                    ImageView tachar = dialog.findViewById(R.id.tachar);
-
-                    TextView btScan = dialog.findViewById(R.id.btScan);
-                    if(escritura) btScan.setVisibility(View.INVISIBLE);
-                    btScan.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                            scanCode();
-                        }
-                    });
-
-                    ImageView close = dialog.findViewById(R.id.imgclose);
-                    close.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(!escritura) edtcode.setText("");
-                            dialog.dismiss();
-                        }
-                    });
-
-
-                    try {
-
-                        JSONObject jsonResponse = new JSONObject(response);
-                        int success = jsonResponse.getInt("success");
-                        System.out.println(success);
-                        System.out.println(response);
-                        if (success == 1) {
-                            System.out.println(success);
-                            String conect = jsonResponse.getString("connectivity");
-
-                            String status = jsonResponse.getString("status");
-
-                            String batery = jsonResponse.getString("battery");
-
-
-                            //Dialog
-                            tachar.setVisibility(View.INVISIBLE);
-                            txtconect.setText(conect);
-                            txtstatus.setText(status);
-                            txtbatería.setText(batery);
-
-                            imgEtq.getLayoutParams().width = 800;
-                            imgEtq.getLayoutParams().height = 400;
-                            imgEtq.setAdjustViewBounds(true);
-
-                        } else {
-                            layoutMsg.setVisibility(View.GONE);
-                            errorMsg.setText(error);
-                            Toast.makeText(getApplicationContext(), "No se ha encontrado la etiqueta", Toast.LENGTH_LONG).show();
-                        }
-
-                    } catch (JSONException e) {
-                        layoutMsg.setVisibility(View.GONE);
-                        errorMsg.setText(error);
-                    }
-                    dialog.show();
-                }
-            };
-
-
-
-            String username = config.getUsername(getApplicationContext());
-            String ip2 = config.getUip(getApplicationContext());
-
-
-
-            EtqEstadoApiRequest etqContentRequest = new EtqEstadoApiRequest(media,ip,dominio,respoListener2,IP,REC,username,ip2);
-
-            RequestQueue queue = Volley.newRequestQueue(EstadoEtq.this);
-            queue.add(etqContentRequest);
-
-
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-
-            obtenerEtiqueta(result);
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-
-    }
-
-
-    private void enterscan(String etcode) {
-
-
-        Response.Listener<String> respoListener2 = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response2) {
-                media = etcode;
-                System.out.println(response2);
+            Response.Listener<String> respoListener2 = response -> {
+                System.out.println(response);
                 String error = "ETIQUETA VACÍA";
                 Dialog dialog = new Dialog(EstadoEtq.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -386,11 +229,12 @@ public class EstadoEtq extends AppCompatActivity {
                 LinearLayout layoutMsg = dialog.findViewById(R.id.layoutMsg);
 
                 TextView mediaTv = dialog.findViewById(R.id.mediatv);
-                mediaTv.setText(etcode);
+                mediaTv.setText(e.getMedia());
                 TextView txtconect = dialog.findViewById(R.id.txtconectivity);
                 TextView txtstatus = dialog.findViewById(R.id.txtstatus);
 
                 TextView txtbatería = dialog.findViewById(R.id.txtbateria);
+
 
                 TextView errorMsg = dialog.findViewById(R.id.error);
 
@@ -399,30 +243,23 @@ public class EstadoEtq extends AppCompatActivity {
 
                 TextView btScan = dialog.findViewById(R.id.btScan);
                 if(escritura) btScan.setVisibility(View.INVISIBLE);
-                btScan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        scanCode();
-                    }
+                btScan.setOnClickListener(view -> {
+                    dialog.dismiss();
+                    scanCode();
                 });
 
                 ImageView close = dialog.findViewById(R.id.imgclose);
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(!escritura) edtcode.setText("");
-                        dialog.dismiss();
-                    }
+
+                close.setOnClickListener(view -> {
+                    if(!escritura) edtcode.setText("");
+                    dialog.dismiss();
                 });
 
-
                 try {
-
-                    JSONObject jsonResponse = new JSONObject(response2);
+                    JSONObject jsonResponse = new JSONObject(response);
                     int success = jsonResponse.getInt("success");
                     System.out.println(success);
-                    System.out.println(response2);
+                    System.out.println(response);
                     if (success == 1) {
                         System.out.println(success);
                         String conect = jsonResponse.getString("connectivity");
@@ -430,7 +267,6 @@ public class EstadoEtq extends AppCompatActivity {
                         String status = jsonResponse.getString("status");
 
                         String batery = jsonResponse.getString("battery");
-
 
                         //Dialog
                         tachar.setVisibility(View.INVISIBLE);
@@ -441,21 +277,119 @@ public class EstadoEtq extends AppCompatActivity {
                         imgEtq.getLayoutParams().width = 800;
                         imgEtq.getLayoutParams().height = 400;
                         imgEtq.setAdjustViewBounds(true);
-                            /*String mensaje=e.getCaja()+"\n"+e.getCentro()+"\n"+e.getItem()+"\n"+e.getId();
-                            System.out.println(mensaje);*/
+
                     } else {
                         layoutMsg.setVisibility(View.GONE);
                         errorMsg.setText(error);
                         Toast.makeText(getApplicationContext(), "No se ha encontrado la etiqueta", Toast.LENGTH_LONG).show();
                     }
 
-                } catch (JSONException e) {
+                } catch (JSONException e1) {
                     layoutMsg.setVisibility(View.GONE);
                     errorMsg.setText(error);
                 }
                 dialog.show();
+            };
 
+            String username = config.getUsername(getApplicationContext());
+            String ip2 = config.getUip(getApplicationContext());
+
+            EtqEstadoApiRequest etqContentRequest = new EtqEstadoApiRequest(media,ip,dominio,respoListener2,IP,REC,username,ip2);
+
+            RequestQueue queue = Volley.newRequestQueue(EstadoEtq.this);
+            queue.add(etqContentRequest);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            obtenerEtiqueta(result);
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
+    private void enterscan(String etcode) {
+
+        Response.Listener<String> respoListener2 = response2 -> {
+            media = etcode;
+            System.out.println(response2);
+            String error = "ETIQUETA VACÍA";
+            Dialog dialog = new Dialog(EstadoEtq.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setContentView(R.layout.stetqdialog);
+
+            LinearLayout layoutMsg = dialog.findViewById(R.id.layoutMsg);
+
+            TextView mediaTv = dialog.findViewById(R.id.mediatv);
+            mediaTv.setText(etcode);
+            TextView txtconect = dialog.findViewById(R.id.txtconectivity);
+            TextView txtstatus = dialog.findViewById(R.id.txtstatus);
+
+            TextView txtbatería = dialog.findViewById(R.id.txtbateria);
+
+            TextView errorMsg = dialog.findViewById(R.id.error);
+
+            ImageView imgEtq = dialog.findViewById(R.id.imgEtq);
+            ImageView tachar = dialog.findViewById(R.id.tachar);
+
+            TextView btScan = dialog.findViewById(R.id.btScan);
+            if(escritura) btScan.setVisibility(View.INVISIBLE);
+
+            btScan.setOnClickListener(view -> {
+                dialog.dismiss();
+                scanCode();
+            });
+
+            ImageView close = dialog.findViewById(R.id.imgclose);
+            close.setOnClickListener(view -> {
+                if(!escritura) edtcode.setText("");
+                dialog.dismiss();
+            });
+
+            try {
+                JSONObject jsonResponse = new JSONObject(response2);
+                int success = jsonResponse.getInt("success");
+                System.out.println(success);
+                System.out.println(response2);
+                if (success == 1) {
+                    System.out.println(success);
+                    String conect = jsonResponse.getString("connectivity");
+
+                    String status = jsonResponse.getString("status");
+
+                    String batery = jsonResponse.getString("battery");
+
+
+                    //Dialog
+                    tachar.setVisibility(View.INVISIBLE);
+                    txtconect.setText(conect);
+                    txtstatus.setText(status);
+                    txtbatería.setText(batery);
+
+                    imgEtq.getLayoutParams().width = 800;
+                    imgEtq.getLayoutParams().height = 400;
+                    imgEtq.setAdjustViewBounds(true);
+                        /*String mensaje=e.getCaja()+"\n"+e.getCentro()+"\n"+e.getItem()+"\n"+e.getId();
+                        System.out.println(mensaje);*/
+                } else {
+                    layoutMsg.setVisibility(View.GONE);
+                    errorMsg.setText(error);
+                    Toast.makeText(getApplicationContext(), "No se ha encontrado la etiqueta", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                layoutMsg.setVisibility(View.GONE);
+                errorMsg.setText(error);
             }
+            dialog.show();
+
         };
 
         String username = config.getUsername(getApplicationContext());
@@ -467,10 +401,7 @@ public class EstadoEtq extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(EstadoEtq.this);
         queue.add(etqContentRequest);
-
-
     }
-
 
     public void resolveIntent(Intent intent){
 
@@ -481,12 +412,13 @@ public class EstadoEtq extends AppCompatActivity {
             Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             assert tag != null;
             byte[] payload = detectTagData(tag).getBytes();
-            System.out.println("Payload ----->" + payload);
+            System.out.println("Payload ----->" + Arrays.toString(payload));
 
         }
     }
 
     private String detectTagData(Tag tag) {
+
         StringBuilder sb = new StringBuilder();
         sb.append("NFC ID (dec): ").append('\n');
         for (String tech : tag.getTechList()) {
@@ -601,15 +533,13 @@ public class EstadoEtq extends AppCompatActivity {
         assert nfcAdapter != null;
         NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
         NfcAdapter adapter = manager.getDefaultAdapter();
+
         if (adapter != null && adapter.isEnabled()) {
-            Toast.makeText(EstadoEtq.this, "NFC encendido!", Toast.LENGTH_LONG).show();
             switch0 = true;
             switchNFC.setChecked(switch0);
 
         } else {
-            Toast.makeText(EstadoEtq.this, "NFC apagado!", Toast.LENGTH_LONG).show();
             switchNFC.setChecked(false);
-
         }
 
         nfcAdapter.enableForegroundDispatch(this,pendingIntent,null,null);
@@ -672,7 +602,7 @@ public class EstadoEtq extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
     }
 }

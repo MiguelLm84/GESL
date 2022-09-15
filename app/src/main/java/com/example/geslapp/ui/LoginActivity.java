@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Campo password vacío", Toast.LENGTH_LONG).show();
                 }
             }
-            username = etqName.getText().toString().trim();
+            username = etqName.getText().toString().trim().toLowerCase();
             password = etqPass.getText().toString().trim();
             //  Toast.makeText(getApplicationContext(), password, Toast.LENGTH_SHORT).show();
             if (etqName.length() == 0 || etqPass.length() == 0) {

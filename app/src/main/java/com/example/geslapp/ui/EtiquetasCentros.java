@@ -79,6 +79,7 @@ public class EtiquetasCentros extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prescanner);
+
         IP = config.getIP(getApplicationContext());
         REC = config.getRec(getApplicationContext());
         TextView tituloTv = (TextView) findViewById(R.id.tvTitulo);
@@ -90,12 +91,8 @@ public class EtiquetasCentros extends AppCompatActivity
         ImageView btEnter= findViewById(R.id.btnEnter);
         ImageButton botonEscanear = findViewById(R.id.btnEscanear);
 
-
         ip=(String) getIntent().getStringExtra("ip").trim();
         dominio=(String) getIntent().getStringExtra("dominio").trim();
-
-
-
 
         butscan = findViewById(R.id.btnEscanear);
         butenter = findViewById(R.id.btnEnter);
@@ -123,124 +120,82 @@ public class EtiquetasCentros extends AppCompatActivity
             Toast.makeText(this,"NO NFC Capabilities",
                     Toast.LENGTH_SHORT).show();
             switchNFC.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+
+        } else {
             NFCtv.setVisibility(View.VISIBLE);
             switchNFC.setVisibility(View.VISIBLE);
             NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
             NfcAdapter adapter = manager.getDefaultAdapter();
-            if (adapter != null && adapter.isEnabled()) {
 
+            if (adapter != null && adapter.isEnabled()) {
                 switch0 = true;
                 switchNFC.setChecked(switch0);
 
             } else {
 
                 switchNFC.setChecked(false);
-
             }
         }
 
-        edtcode.setOnKeyListener(new View.OnKeyListener()
-        {
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
-                {
-                    switch (keyCode)
-                    {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            enterscan(edtcode.getText().toString().toUpperCase(Locale.ROOT));
-                            return true;
-                        default:
-                            break;
+        edtcode.setOnKeyListener((v, keyCode, event) -> {
 
-                    }
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_CENTER:
+                    case KeyEvent.KEYCODE_ENTER:
+                        enterscan(edtcode.getText().toString().toUpperCase(Locale.ROOT));
+                        return true;
+                    default:
+                        break;
                 }
-                return false;
             }
+            return false;
         });
 
-        butscan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scanCode();
-            }
-        });
+        butscan.setOnClickListener(v -> scanCode());
 
-
-
-
-
-
-
-        btEnter.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                media = et.getText().toString().trim().toUpperCase(Locale.ROOT);
-                enterscan(media);
-
-            }
+        btEnter.setOnClickListener(view -> {
+            media = et.getText().toString().trim().toUpperCase(Locale.ROOT);
+            enterscan(media);
 
         });
 
-        switchNFC.setOnClickListener(new View.OnClickListener() {
-                                         @Override
+        switchNFC.setOnClickListener(v -> {
+            switch0=(!switch0);
 
-                                         public void onClick(View v) {
-                                             switch0=(!switch0);
+            if(switch0 == true) {
+                NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
+                NfcAdapter adapter = manager.getDefaultAdapter();
+                if (adapter != null && adapter.isEnabled()) {
 
-
-                                             if(switch0==true) {
-                                                 NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
-                                                 NfcAdapter adapter = manager.getDefaultAdapter();
-                                                 if (adapter != null && adapter.isEnabled()) {
-
-
-                                                 } else {
-                                                     Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
-                                                     startActivity(intent);
-
-                                                 }
-                                             }else{
-                                                 Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
-                                                 startActivity(intent);
-
-
-                                             }
-
-
-                                         }
-
-                                     }
-        );
-
-        butbarras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                escritura = !escritura;
-                if(escritura) {
-                    int color = Color.parseColor("#04A800");
-                    Drawable butdraw = butbarras.getBackground();
-                    butdraw = DrawableCompat.wrap(butdraw);
-                    DrawableCompat.setTint(butdraw,color);
-
-
+                } else {
+                    Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                    startActivity(intent);
                 }
-                else
-                {
-                    int color = Color.parseColor("#535353");
-                    Drawable butdraw = butbarras.getBackground();
-                    butdraw = DrawableCompat.wrap(butdraw);
-                    DrawableCompat.setTint(butdraw,color);
-                }
+
+            } else{
+                Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                startActivity(intent);
             }
+        });
+
+        butbarras.setOnClickListener(v -> {
+            escritura = !escritura;
+            int color;
+            if(escritura) {
+                color = Color.parseColor("#04A800");
+
+            } else {
+                color = Color.parseColor("#535353");
+            }
+            Drawable butdraw = butbarras.getBackground();
+            butdraw = DrawableCompat.wrap(butdraw);
+            DrawableCompat.setTint(butdraw,color);
         });
     }//END ONCREATE
+
     private void scanCode() {
+
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(CaptureAct.class);
         integrator.setOrientationLocked(false);
@@ -249,6 +204,7 @@ public class EtiquetasCentros extends AppCompatActivity
         integrator.initiateScan();
     }
     private void obtenerEtiqueta(IntentResult result) {
+
         Etiqueta e = new Etiqueta();
         e.setMedia(result.getContents());
 
@@ -256,129 +212,10 @@ public class EtiquetasCentros extends AppCompatActivity
         media = e.getMedia();
         final String tracking = edtcode.getText().toString().trim().toUpperCase(Locale.ROOT);
         System.out.println(tracking);
+
         if (result.getContents() != null) {
-            Response.Listener<String> respoListener2 =  new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    System.out.println(response);
-                    String error = "ETIQUETA VACÍA";
-                    Dialog dialog = new Dialog(EtiquetasCentros.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.setContentView(R.layout.etq_dialog);
-
-                    LinearLayout layoutMsg = dialog.findViewById(R.id.layoutMsg);
-
-                    TextView mediaTv = dialog.findViewById(R.id.mediatv);
-                    mediaTv.setText(e.getMedia());
-                    TextView cajaTv = dialog.findViewById(R.id.txtconectivity);
-                    TextView centroTv = dialog.findViewById(R.id.txtstatus);
-                    TextView itemTv = dialog.findViewById(R.id.item);
-                    TextView idTv = dialog.findViewById(R.id.txtbateria);
-
-                    TextView errorMsg = dialog.findViewById(R.id.error);
-
-                    ImageView imgEtq = dialog.findViewById(R.id.imgEtq);
-                    ImageView tachar = dialog.findViewById(R.id.tachar);
-
-                    TextView btScan = dialog.findViewById(R.id.btScan);
-                    if(escritura) btScan.setVisibility(View.INVISIBLE);
-                    btScan.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                            scanCode();
-                        }
-                    });
-
-                    ImageView close = dialog.findViewById(R.id.imgclose);
-                    close.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(!escritura) edtcode.setText("");
-                            dialog.dismiss();
-                        }
-                    });
-
-
-                    try {
-
-                        JSONObject jsonResponse = new JSONObject(response);
-                        int success = jsonResponse.getInt("success");
-                        System.out.println(success);
-                        System.out.println(response);
-                        if (success == 1) {
-                            System.out.println(success);
-                            String id_item = jsonResponse.getString("id_item");
-
-                            String nombre = jsonResponse.getString("name");
-
-                            String precio = jsonResponse.getString("price");
-
-
-                            //Dialog
-                            tachar.setVisibility(View.INVISIBLE);
-                            cajaTv.setText(id_item);
-                            centroTv.setText(nombre);
-                            itemTv.setText(precio);
-
-                            imgEtq.getLayoutParams().width = 800;
-                            imgEtq.getLayoutParams().height = 400;
-                            imgEtq.setAdjustViewBounds(true);
-                            /*String mensaje=e.getCaja()+"\n"+e.getCentro()+"\n"+e.getItem()+"\n"+e.getId();
-                            System.out.println(mensaje);*/
-                        } else {
-                            layoutMsg.setVisibility(View.GONE);
-                            errorMsg.setText(error);
-                            Toast.makeText(getApplicationContext(), "No se ha encontrado la etiqueta", Toast.LENGTH_LONG).show();
-                        }
-
-                    } catch (JSONException e) {
-                        layoutMsg.setVisibility(View.GONE);
-                        errorMsg.setText(error);
-                    }
-                    dialog.show();
-                }
-            };
-
-
-
-            String username = config.getUsername(getApplicationContext());
-            String ip2 = config.getUip(getApplicationContext());
-
-
-
-            EtqContenidoApiRequest etqContentRequest = new EtqContenidoApiRequest(media,ip,dominio,respoListener2,IP,REC,username,ip2);
-
-           RequestQueue queue = Volley.newRequestQueue(EtiquetasCentros.this);
-            queue.add(etqContentRequest);
-
-
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-
-            obtenerEtiqueta(result);
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-
-    }
-
-
-    private void enterscan(String etcode) {
-
-
-        Response.Listener<String> respoListener2 = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response2) {
-                media = etcode;
-                System.out.println(response2);
+            Response.Listener<String> respoListener2 = response -> {
+                System.out.println(response);
                 String error = "ETIQUETA VACÍA";
                 Dialog dialog = new Dialog(EtiquetasCentros.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -388,7 +225,7 @@ public class EtiquetasCentros extends AppCompatActivity
                 LinearLayout layoutMsg = dialog.findViewById(R.id.layoutMsg);
 
                 TextView mediaTv = dialog.findViewById(R.id.mediatv);
-                mediaTv.setText(etcode);
+                mediaTv.setText(e.getMedia());
                 TextView cajaTv = dialog.findViewById(R.id.txtconectivity);
                 TextView centroTv = dialog.findViewById(R.id.txtstatus);
                 TextView itemTv = dialog.findViewById(R.id.item);
@@ -401,30 +238,23 @@ public class EtiquetasCentros extends AppCompatActivity
 
                 TextView btScan = dialog.findViewById(R.id.btScan);
                 if(escritura) btScan.setVisibility(View.INVISIBLE);
-                btScan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        scanCode();
-                    }
+
+                btScan.setOnClickListener(view -> {
+                    dialog.dismiss();
+                    scanCode();
                 });
 
                 ImageView close = dialog.findViewById(R.id.imgclose);
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(!escritura) edtcode.setText("");
-                        dialog.dismiss();
-                    }
+                close.setOnClickListener(view -> {
+                    if(!escritura) edtcode.setText("");
+                    dialog.dismiss();
                 });
 
-
                 try {
-
-                    JSONObject jsonResponse = new JSONObject(response2);
+                    JSONObject jsonResponse = new JSONObject(response);
                     int success = jsonResponse.getInt("success");
                     System.out.println(success);
-                    System.out.println(response2);
+                    System.out.println(response);
                     if (success == 1) {
                         System.out.println(success);
                         String id_item = jsonResponse.getString("id_item");
@@ -443,36 +273,129 @@ public class EtiquetasCentros extends AppCompatActivity
                         imgEtq.getLayoutParams().width = 800;
                         imgEtq.getLayoutParams().height = 400;
                         imgEtq.setAdjustViewBounds(true);
-                            /*String mensaje=e.getCaja()+"\n"+e.getCentro()+"\n"+e.getItem()+"\n"+e.getId();
-                            System.out.println(mensaje);*/
+                        /*String mensaje=e.getCaja()+"\n"+e.getCentro()+"\n"+e.getItem()+"\n"+e.getId();
+                        System.out.println(mensaje);*/
                     } else {
                         layoutMsg.setVisibility(View.GONE);
                         errorMsg.setText(error);
                         Toast.makeText(getApplicationContext(), "No se ha encontrado la etiqueta", Toast.LENGTH_LONG).show();
                     }
 
-                } catch (JSONException e) {
+                } catch (JSONException e1) {
                     layoutMsg.setVisibility(View.GONE);
                     errorMsg.setText(error);
                 }
                 dialog.show();
+            };
 
+            String username = config.getUsername(getApplicationContext());
+            String ip2 = config.getUip(getApplicationContext());
+
+            EtqContenidoApiRequest etqContentRequest = new EtqContenidoApiRequest(media,ip,dominio,respoListener2,IP,REC,username,ip2);
+
+           RequestQueue queue = Volley.newRequestQueue(EtiquetasCentros.this);
+            queue.add(etqContentRequest);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            obtenerEtiqueta(result);
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void enterscan(String etcode) {
+
+        Response.Listener<String> respoListener2 = response2 -> {
+            media = etcode;
+            System.out.println(response2);
+            String error = "ETIQUETA VACÍA";
+            Dialog dialog = new Dialog(EtiquetasCentros.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setContentView(R.layout.etq_dialog);
+
+            LinearLayout layoutMsg = dialog.findViewById(R.id.layoutMsg);
+
+            TextView mediaTv = dialog.findViewById(R.id.mediatv);
+            mediaTv.setText(etcode);
+            TextView cajaTv = dialog.findViewById(R.id.txtconectivity);
+            TextView centroTv = dialog.findViewById(R.id.txtstatus);
+            TextView itemTv = dialog.findViewById(R.id.item);
+            TextView idTv = dialog.findViewById(R.id.txtbateria);
+
+            TextView errorMsg = dialog.findViewById(R.id.error);
+
+            ImageView imgEtq = dialog.findViewById(R.id.imgEtq);
+            ImageView tachar = dialog.findViewById(R.id.tachar);
+
+            TextView btScan = dialog.findViewById(R.id.btScan);
+            if(escritura) btScan.setVisibility(View.INVISIBLE);
+
+            btScan.setOnClickListener(view -> {
+                dialog.dismiss();
+                scanCode();
+            });
+
+            ImageView close = dialog.findViewById(R.id.imgclose);
+            close.setOnClickListener(view -> {
+                if(!escritura) edtcode.setText("");
+                dialog.dismiss();
+            });
+
+            try {
+                JSONObject jsonResponse = new JSONObject(response2);
+                int success = jsonResponse.getInt("success");
+                System.out.println(success);
+                System.out.println(response2);
+                if (success == 1) {
+                    System.out.println(success);
+                    String id_item = jsonResponse.getString("id_item");
+
+                    String nombre = jsonResponse.getString("name");
+
+                    String precio = jsonResponse.getString("price");
+
+                    //Dialog
+                    tachar.setVisibility(View.INVISIBLE);
+                    cajaTv.setText(id_item);
+                    centroTv.setText(nombre);
+                    itemTv.setText(precio);
+
+                    imgEtq.getLayoutParams().width = 800;
+                    imgEtq.getLayoutParams().height = 400;
+                    imgEtq.setAdjustViewBounds(true);
+                        /*String mensaje=e.getCaja()+"\n"+e.getCentro()+"\n"+e.getItem()+"\n"+e.getId();
+                        System.out.println(mensaje);*/
+                } else {
+                    layoutMsg.setVisibility(View.GONE);
+                    errorMsg.setText(error);
+                    Toast.makeText(getApplicationContext(), "No se ha encontrado la etiqueta", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                layoutMsg.setVisibility(View.GONE);
+                errorMsg.setText(error);
             }
+            dialog.show();
+
         };
 
         String username = config.getUsername(getApplicationContext());
         String ip2 = config.getUip(getApplicationContext());
-
 
         media = etcode;
         EtqContenidoApiRequest etqContentRequest = new EtqContenidoApiRequest(media,ip,dominio,respoListener2,IP,REC,username,ip2);
 
         RequestQueue queue = Volley.newRequestQueue(EtiquetasCentros.this);
         queue.add(etqContentRequest);
-
-
     }
-
 
     public void resolveIntent(Intent intent){
 
@@ -604,12 +527,10 @@ public class EtiquetasCentros extends AppCompatActivity
         NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
         NfcAdapter adapter = manager.getDefaultAdapter();
         if (adapter != null && adapter.isEnabled()) {
-            Toast.makeText(EtiquetasCentros.this, "NFC encendido!", Toast.LENGTH_LONG).show();
             switch0 = true;
             switchNFC.setChecked(switch0);
 
         } else {
-            Toast.makeText(EtiquetasCentros.this, "NFC apagado!", Toast.LENGTH_LONG).show();
             switchNFC.setChecked(false);
 
         }
@@ -625,8 +546,7 @@ public class EtiquetasCentros extends AppCompatActivity
     private void processNFCData( Intent inputIntent ) {
 
         Log.i(TAG, "processNFCData");
-        Parcelable[] rawMessages =
-                inputIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        Parcelable[] rawMessages = inputIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
         if (rawMessages != null && rawMessages.length > 0) {
 
@@ -654,21 +574,18 @@ public class EtiquetasCentros extends AppCompatActivity
 
                 String[] churro = base.split("/");
                 String codigoetq = churro[1];
-                Toast.makeText(this, codigoetq+"", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, codigoetq+"", Toast.LENGTH_LONG).show();
 
                 enterscan(codigoetq);
                 edtcode.setText(codigoetq);
-
             }
-
         }
     }
+
     private void setDisplayText ( String text ) {
+
         TextView veiw = findViewById(R.id.viewdata);
-
         veiw.setText(text);
-
-
     }
 
     @Override

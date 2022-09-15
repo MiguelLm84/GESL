@@ -1,9 +1,7 @@
 package com.example.geslapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -27,11 +24,10 @@ import com.example.geslapp.core.requests.EansRequest;
 import com.example.geslapp.core.clases.Modelo;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+
 
 public class EscanearTiendaActivity extends AppCompatActivity {
     Spinner centros, modelosetq;
@@ -101,8 +97,6 @@ public class EscanearTiendaActivity extends AppCompatActivity {
                 String ceco = String.valueOf(listaCecos.get(position));
                 System.out.println(ceco);
                 c.setCeco(ceco);
-                Toast.makeText(EscanearTiendaActivity.this, "A "+c.getId(), Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -124,9 +118,6 @@ public class EscanearTiendaActivity extends AppCompatActivity {
                 String tamano =listaTamanos.get(position);
                 System.out.println(tamano);
                 m.setTamano(tamano);
-                Toast.makeText(EscanearTiendaActivity.this, "A "+m.getId(), Toast.LENGTH_SHORT).show();
-
-                //Toast.makeText(EscanearTiendaActivity.this, "value is"+position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -135,33 +126,32 @@ public class EscanearTiendaActivity extends AppCompatActivity {
             }
         });
 
-        btComenzar.setOnClickListener(new View.OnClickListener() {
+       // btComenzar.setOnClickListener(view -> scanCode());
 
-            @Override
-            public void onClick(View view) {
-                scanCode();
-                Toast.makeText(EscanearTiendaActivity.this, "A "+c.getId(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(EscanearTiendaActivity.this, "A "+m.getId(), Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
-
+        btComenzar.setOnClickListener(view -> goToScannerTiendaActivity());
     }
 
+    private void goToScannerTiendaActivity() {
+
+        Intent i = new Intent(this, ScannerTiendaActivity.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 
     private void scanCode() {
+
         IntentIntegrator integrator2 = new IntentIntegrator(this);
         integrator2.setCaptureActivity(EscanerContinuoAct.class);
         integrator2.setOrientationLocked(false);
         integrator2.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator2.setPrompt(code);
         integrator2.initiateScan();
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         String resultado = result.getContents();
         System.out.println(resultado);
@@ -171,36 +161,32 @@ public class EscanearTiendaActivity extends AppCompatActivity {
             System.out.println(resultado);
             code = resultado;
             Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
-            Response.Listener<String> respoListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        System.out.println(response);
-                        JSONObject jsonResponse = new JSONObject(response);
-                        int success = jsonResponse.getInt("success");
-                        System.out.println(resultado+"    a");
-                        if (success == 1) {
-                            Toast.makeText(getApplicationContext(),"Insert realizado exitosamente", Toast.LENGTH_SHORT).show();
-                            System.out.println(resultado+"    b");
 
-                        } else {
-                            Toast.makeText(getApplicationContext(),"AAAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
-                            System.out.println(resultado+"    c");
+            Response.Listener<String> respoListener = response -> {
+                try {
+                    System.out.println(response);
+                    JSONObject jsonResponse = new JSONObject(response);
+                    int success = jsonResponse.getInt("success");
+                    System.out.println(resultado+"    a");
+                    if (success == 1) {
+                        Toast.makeText(getApplicationContext(),"Insert realizado exitosamente", Toast.LENGTH_SHORT).show();
+                        System.out.println(resultado+"    b");
 
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),"AAAAAAAAAEEEEEEEEEE", Toast.LENGTH_SHORT).show();
-                        System.out.println(resultado+"    d");
+                    } else {
+                        System.out.println(resultado+"    c");
+
                     }
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println(resultado+"    d");
                 }
+
             };
 
             ConfigPreferences config = new ConfigPreferences();
             String REC = config.getRec(getApplicationContext());
             String IP = config.getIP(getApplicationContext());
-            String[] udata = new String[1];
+            String[] udata = new String[2];
             udata[0] = config.getUsername(getApplicationContext());
             udata[1] = config.getUip(getApplicationContext());
             EansRequest eansRequest = new EansRequest(c.getId(),m.getTamano(), resultado, respoListener,IP,REC,udata[0],udata[1]);
@@ -211,7 +197,6 @@ public class EscanearTiendaActivity extends AppCompatActivity {
             scanCode();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
-            Toast.makeText(getApplicationContext(), "AAAAAAAAAAaaaaaaaaah", Toast.LENGTH_LONG).show();
         }
 
     }
